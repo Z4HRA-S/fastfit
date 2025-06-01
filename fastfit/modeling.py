@@ -783,9 +783,12 @@ class FastFitTrainable(PreTrainedModel):
             tokens_sim = tokens_sim * tokens_mask
 
         scores = tokens_sim.max(2)[0].sum(2)
+        scores = scores / scores.mean()
+        scores = torch.clamp(scores, 0, 1)
 
-        if with_lens_norm:
+        """if with_lens_norm:
             scores = scores / lens
+        """
 
         return scores
 
