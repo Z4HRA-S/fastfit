@@ -783,7 +783,7 @@ class FastFitTrainable(PreTrainedModel):
             tokens_sim = tokens_sim * tokens_mask
 
         max_value = tokens_mask.max(-1)[0].unsqueeze(-1)
-        scores = scores / max_value
+        scores = tokens_sim / max_value
 
         """if with_lens_norm:
             scores = scores / lens
